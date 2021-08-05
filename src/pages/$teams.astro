@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-const { collection } = Astro.props;
 
 export async function createCollection() {
     const espnImport = await import('../data/espn.json');
@@ -17,13 +16,20 @@ export async function createCollection() {
     const weekGames = week1.schedule.filter(s => s.matchupPeriodId === week);
 
     return {
-        async data({ params }) {
-            let game = [...weekGames.map(w => w.home), ...weekGames.map(w => w.away)]
-                .find(w => w.teamId === params.id);
+        route: `/teams/:abbrev`,
+        paths() {
+            return teams.teams.map(team => ({ params: { 
+                abbrev: team.abbrev, 
+                id: team.id, 
+                ownerId: team.owners[0],
+                teamName: `${team.location} ${team.nickname}`
+            }}));
+        },
+        async props({ params }) {
+            let game = [...weekGames.map(w => w.home), ...weekGames.map(w => w.away)].find(w => w.teamId === params.id);
             
             let positionPoints = Object.keys(espn.lineupSlots).map(p => { 
-                let players = game.rosterForCurrentScoringPeriod.entries
-                    .filter(e => e.lineupSlotId === espn.lineupSlots[p]);
+                let players = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId === espn.lineupSlots[p]);
                 let points = players.reduce( (acc, cur) => acc += cur.playerPoolEntry.appliedStatTotal, 0);
                 
                 return {
@@ -32,10 +38,8 @@ export async function createCollection() {
                 };
             });
             
-            let starters = game.rosterForCurrentScoringPeriod.entries
-                .filter(e => e.lineupSlotId !== espn.lineupSlots.bench);
-            let projected = starters
-                .map(e => e.playerPoolEntry.player.stats.find(s => s.proTeamId === 0));
+            let starters = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId !== espn.lineupSlots.bench);
+            let projected = starters.map(e => e.playerPoolEntry.player.stats.find(s => s.proTeamId === 0));
             let projectedPoints = projected.reduce( (acc, cur) => acc += cur.appliedTotal, 0);
             let mvpPoints = Math.max.apply(this, starters.map(s => s.playerPoolEntry.appliedStatTotal));
             let mvps = starters.filter(s => s.playerPoolEntry.appliedStatTotal === mvpPoints);
@@ -43,14 +47,12 @@ export async function createCollection() {
             let lvpPoints = Math.min.apply(this, starters.map(s => s.playerPoolEntry.appliedStatTotal));
             let lvps = starters.filter(s => s.playerPoolEntry.appliedStatTotal === lvpPoints);
             let lvpNames = lvps.map(m => m.playerPoolEntry.player.fullName).join(", ");
-            let bench = game.rosterForCurrentScoringPeriod.entries
-                .filter(e => e.lineupSlotId === espn.lineupSlots.bench);
+            let bench = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId === espn.lineupSlots.bench);
             let benchMvpPoints = Math.max.apply(this, bench.map(s => s.playerPoolEntry.appliedStatTotal));
-            let benchMvps = bench
-                .filter(s => s.playerPoolEntry.appliedStatTotal === benchMvpPoints);
+            let benchMvps = bench.filter(s => s.playerPoolEntry.appliedStatTotal === benchMvpPoints);
             let benchMvpNames = benchMvps.map(m => m.playerPoolEntry.player.fullName).join(", ");
-            
-            return [{
+
+            return {
                 benchMvpNames,
                 benchMvpPoints,
                 draftOrder: draft.teams.find(t => t.id === params.id).draftOrder,
@@ -62,25 +64,17 @@ export async function createCollection() {
                 mvpPoints,
                 positionPoints,
                 projectedPoints,
-                team,
+                teamName: params.teamName,
                 week
-            }];
-        },
-        pageSize: Infinity,
-        routes: teams.teams.map(team => { return {
-            abbrev: team.abbrev, 
-            id: team.id, 
-            ownerId: team.owners[0], 
-            teamName: `${team.location} ${team.nickname}`
-        }}),
-        permalink: ({ params }) => `/teams/${params.abbrev}`
+            };
+        }
     };
 }
 
-const team = collection.data[0];
+const { team } = Astro.props;
 ---
 <BaseLayout title="Team Report">
-  <h2>{collection.params.teamName}</h2>
+  <h2>{team.teamName}</h2>
 
   <h3>Season</h3>
   <table>
