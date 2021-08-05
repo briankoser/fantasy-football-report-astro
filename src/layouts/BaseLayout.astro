@@ -1,0 +1,42 @@
+---
+const {title} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title} · Berry</title>
+
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/img/favicons/site.webmanifest">
+    <link rel="shortcut icon" href="/img/favicons/favicon.ico">
+    <meta name="msapplication-config" content="/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="hsl(32, 100%, 92%)"> -->
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-header-title">
+            <span class="site-title">Berry</span>
+        </div>
+        <div class="site-header-nav-link">
+            <a href="#siteNav" class="site-nav-link">Menu</a>
+        </div>
+    </header>
+    <main class="container site-main">
+        <h1>{title}</h1>
+        <slot />
+    </main>
+    <nav class="site-nav">
+        <ul id="siteNav" role="navigation">
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+    <footer class="site-footer">
+        © Brian Koser 2021 · Are you ready for some foot-baaaaaaaaaall
+    </footer>
+</body>
+</html>

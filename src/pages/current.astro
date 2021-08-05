@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+// import { Client } from 'espn-fantasy-football-api/node';
+// const client = new Client({ leagueId: 798813 });
+// const league = client.getLeagueInfo({seasonId: 2020});
+const league = "Koser Fantasy Football";
+---
+<BaseLayout title="Homepage">
+  <h1>{league.name}</h1>
+</BaseLayout>

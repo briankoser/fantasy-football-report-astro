@@ -1,0 +1,44 @@
+{
+    "teams": [
+        {
+            "id": 1,
+            "draftOrder": 1
+        },
+        {
+            "id": 2,
+            "draftOrder": 2
+        },
+        {
+            "id": 3,
+            "draftOrder": 3
+        },
+        {
+            "id": 4,
+            "draftOrder": 9
+        },
+        {
+            "id": 5,
+            "draftOrder": 4
+        },
+        {
+            "id": 6,
+            "draftOrder": 5
+        },
+        {
+            "id": 7,
+            "draftOrder": 6
+        },
+        {
+            "id": 10,
+            "draftOrder": 7
+        },
+        {
+            "id": 11,
+            "draftOrder": 8
+        },
+        {
+            "id": 12,
+            "draftOrder": 10
+        }
+    ]
+}

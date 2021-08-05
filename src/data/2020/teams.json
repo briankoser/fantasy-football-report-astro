@@ -1,0 +1,121 @@
+[{
+	"gameId": 1,
+	"id": 798813,
+	"members": [{
+		"displayName": "Micah55322",
+		"id": "{46A3C301-E5DB-4B66-A3C3-01E5DBFB6696}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "DadKos",
+		"id": "{63A4288D-BE1F-4CFF-A428-8DBE1F8CFF0D}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "Mom's Marauders",
+		"id": "{6F3D5B75-0ECD-4FB3-963F-13C1290526F6}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "Brian Koser",
+		"id": "{76756B94-C59C-433B-BA06-EB121DF353E6}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "mbinze9057454",
+		"id": "{78320BE4-F210-4E4A-9653-13C485CFD693}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "tdbinzel77",
+		"id": "{9919A19B-2EF2-4356-B0C7-DBF5F1C8D760}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "ohszyq3959309",
+		"id": "{B962BE16-FD3B-4038-9EB4-30FBB4F68181}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "zffhat2279838",
+		"id": "{CB95A562-FE19-4B36-AF99-C24C6C5C4BA6}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "anreim1277593",
+		"id": "{DBFCA54D-67B1-479B-BBE2-DA25E3365C92}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "mattko1370012",
+		"id": "{EF2FB067-8D3D-4B75-883B-55F34FD6ABCA}",
+		"isLeagueManager": false
+	}, {
+		"displayName": "ESPNFAN9438335714",
+		"id": "{F3CBD1EE-163A-4A0C-8BD1-EE163AEA0CA9}",
+		"isLeagueManager": false
+	}],
+	"scoringPeriodId": 16,
+	"seasonId": 2020,
+	"segmentId": 0,
+	"settings": {
+		"name": "Koser Fantasy Football"
+	},
+	"status": {
+		"currentMatchupPeriod": 16,
+		"isActive": true,
+		"latestScoringPeriod": 18
+	},
+	"teams": [{
+		"abbrev": "CW",
+		"id": 1,
+		"location": "Christian",
+		"nickname": "Worship",
+		"owners": ["{76756B94-C59C-433B-BA06-EB121DF353E6}"]
+	}, {
+		"abbrev": "DK",
+		"id": 2,
+		"location": "PApa",
+		"nickname": "Phillyman",
+		"owners": ["{63A4288D-BE1F-4CFF-A428-8DBE1F8CFF0D}"]
+	}, {
+		"abbrev": "BLSM",
+		"id": 3,
+		"location": "Breesy Like",
+		"nickname": "Sunday Mornin'",
+		"owners": ["{B962BE16-FD3B-4038-9EB4-30FBB4F68181}", "{6F3D5B75-0ECD-4FB3-963F-13C1290526F6}"]
+	}, {
+		"abbrev": "PRPI",
+		"id": 4,
+		"location": "Professional",
+		"nickname": "Pirates",
+		"owners": ["{CB95A562-FE19-4B36-AF99-C24C6C5C4BA6}"]
+	}, {
+		"abbrev": "CFT",
+		"id": 5,
+		"location": "Charleston",
+		"nickname": "Football Team",
+		"owners": ["{EF2FB067-8D3D-4B75-883B-55F34FD6ABCA}"]
+	}, {
+		"abbrev": "TH",
+		"id": 6,
+		"location": "Totes ",
+		"nickname": "Helaire",
+		"owners": ["{DBFCA54D-67B1-479B-BBE2-DA25E3365C92}"]
+	}, {
+		"abbrev": "DCJ",
+		"id": 7,
+		"location": "DC",
+		"nickname": "J3ST3R",
+		"owners": ["{F3CBD1EE-163A-4A0C-8BD1-EE163AEA0CA9}"]
+	}, {
+		"abbrev": "MFL",
+		"id": 10,
+		"location": "Mahomes in",
+		"nickname": "Florida",
+		"owners": ["{46A3C301-E5DB-4B66-A3C3-01E5DBFB6696}"]
+	}, {
+		"abbrev": "MD",
+		"id": 11,
+		"location": "'Mack",
+		"nickname": "Down",
+		"owners": ["{9919A19B-2EF2-4356-B0C7-DBF5F1C8D760}"]
+	}, {
+		"abbrev": "MHM",
+		"id": 12,
+		"location": "MileHigh",
+		"nickname": "Magic",
+		"owners": ["{78320BE4-F210-4E4A-9653-13C485CFD693}"]
+	}]
+}]
