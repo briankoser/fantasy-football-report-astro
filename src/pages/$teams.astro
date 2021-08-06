@@ -16,12 +16,13 @@ export async function createCollection() {
     const weekGames = week1.schedule.filter(s => s.matchupPeriodId === week);
 
     return {
-        route: `/teams/:abbrev`,
+        route: `/teams/:slug`,
         paths() {
             return teams.teams.map(team => ({ params: { 
                 abbrev: team.abbrev, 
                 id: team.id, 
                 ownerId: team.owners[0],
+                slug: team.abbrev.toLowerCase(),
                 teamName: `${team.location} ${team.nickname}`
             }}));
         },
@@ -53,19 +54,21 @@ export async function createCollection() {
             let benchMvpNames = benchMvps.map(m => m.playerPoolEntry.player.fullName).join(", ");
 
             return {
-                benchMvpNames,
-                benchMvpPoints,
-                draftOrder: draft.teams.find(t => t.id === params.id).draftOrder,
-                game,
-                owner: teams.members.find(m => m.id === params.ownerId),
-                lvpNames,
-                lvpPoints,
-                mvpNames,
-                mvpPoints,
-                positionPoints,
-                projectedPoints,
-                teamName: params.teamName,
-                week
+                team: {
+                    benchMvpNames,
+                    benchMvpPoints,
+                    draftOrder: draft.teams.find(t => t.id === params.id).draftOrder,
+                    game,
+                    owner: teams.members.find(m => m.id === params.ownerId),
+                    lvpNames,
+                    lvpPoints,
+                    mvpNames,
+                    mvpPoints,
+                    positionPoints,
+                    projectedPoints,
+                    teamName: params.teamName,
+                    week
+                }
             };
         }
     };
