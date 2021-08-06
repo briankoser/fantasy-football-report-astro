@@ -2,10 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 
 export async function createCollection() {
-    const espnImport = await import('../data/espn.json');
+    const espnImport = await import('../data/2020/espn.json');
     const draftImport = await import('../data/2020/draft.json');
-    const teamsImport = await import('../data/2020/teams.json');
-    const week1Import = await import('../data/2020/week1.json');
+    const teamsImport = await import('../data/2020/raw/teams.json');
+    const week1Import = await import('../data/2020/raw/weeks/week1.json');
+    
+    const weektest = await import('../data/2020/week.js');
+    console.log(weektest);
 
     const espn = espnImport.default;
     const draft = draftImport.default;
