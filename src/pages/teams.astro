@@ -1,0 +1,21 @@
+---
+import TeamLayout from '../layouts/TeamLayout.astro'
+
+const { team } = Astro.props;
+---
+<TeamLayout title="Team Report">
+    <div class="empty">
+        <div class="empty-icon">
+            <i class="icon icon-4x icon-message"></i>
+        </div>
+        <p class="empty-title h5">Select a team</p>
+    </div>
+</TeamLayout>
+
+<style>
+.empty {
+    margin: 0 300px;
+    padding: 100px;
+    width: 400px;
+}
+</style>

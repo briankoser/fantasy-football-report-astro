@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro'
+const {title, teamName, teamSlug} = Astro.props;
+
+const teamsImport = await import('../data/2020/raw/teams.json');
+const teams = teamsImport.default[0].teams.map(team => ({ slug: team.abbrev.toLowerCase(), teamName: `${team.location} ${team.nickname}` }));
+---
+<BaseLayout title={title}>
+  <div class="container">
+    <div class="columns">
+      <div class="column col-3">
+        <ul class="nav">
+          {teams.map(t => `<li class="nav-item ${t.slug === teamSlug ? "active" : ""}"><a href="/teams/${t.slug}">${t.teamName}</a></li>`)} 
+          <!-- TODO: bug that teamSlug doesn't get passed in -->
+        </ul>
+      </div>
+      <div class="column col-9">
+        <h2>{teamName}</h2>
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout>

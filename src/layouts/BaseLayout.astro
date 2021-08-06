@@ -7,7 +7,7 @@ const {title} = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{title} · Berry</title>
+    <title>{title}</title>
 
     <!-- <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
@@ -16,27 +16,26 @@ const {title} = Astro.props;
     <link rel="shortcut icon" href="/img/favicons/favicon.ico">
     <meta name="msapplication-config" content="/img/favicons/browserconfig.xml">
     <meta name="theme-color" content="hsl(32, 100%, 92%)"> -->
+    <link rel="stylesheet" href="/style/global.css">
+    <link rel="stylesheet" href="/style/spectre.css">
+    <link rel="stylesheet" href="/style/spectre-icons.css">
 </head>
 <body>
-    <header class="site-header">
-        <div class="site-header-title">
-            <span class="site-title">Berry</span>
-        </div>
-        <div class="site-header-nav-link">
-            <a href="#siteNav" class="site-nav-link">Menu</a>
-        </div>
+    <header class="navbar">
+        <section class="navbar-section">
+            <a href="/" class="navbar-brand mr-2">Koser Fantasy Football Stats</a>
+        </section>
+        <section class="navbar-section">
+            <a href="/week/1" class="btn btn-link">Week 1</a>
+            <a href="/teams" class="btn btn-link">Teams</a>
+        </section>
     </header>
     <main class="container site-main">
         <h1>{title}</h1>
         <slot />
     </main>
-    <nav class="site-nav">
-        <ul id="siteNav" role="navigation">
-            <li><a href="/">Home</a></li>
-        </ul>
-    </nav>
     <footer class="site-footer">
-        © Brian Koser 2021 · Are you ready for some foot-baaaaaaaaaall
+        © Brian Koser 2021 · <a href="https://astro.build/">Astro</a> and <a href="https://picturepan2.github.io/spectre">Spectre CSS</a> · Are you ready for some foot-baaaaaaaaaall
     </footer>
 </body>
 </html>
