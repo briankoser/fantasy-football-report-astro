@@ -19,34 +19,18 @@ function displayOutcome(didWin) {
   <table class="table table-striped">
     <thead>
       <th>Away Team</th>
-      <!-- <th>Projected Points</th>
-      <th>Projected Win</th> -->
+      <!-- <th>Projected Win</th> -->
       <th>Score</th>
       <th>Win</th>
-      <!-- <th>Actual vs Projected</th>
-      <th>Bench</th>
-      <th>Additional Points Possible</th>
-      <th>Points Possible</th>
-      <th>Win If Started Perfectly</th>
-      <th>Win If Both Started Perfectly</th>
-      <th>MVP</th>
-      <th>LVP</th>
-      <th>Bench MVP</th> -->
+      <!-- <th>Win If Started Perfectly</th>
+      <th>Win If Both Started Perfectly</th> -->
 
       <th>Home Team</th>
-      <!-- <th>Projected Points</th>
-      <th>Projected Win</th> -->
+      <!-- <th>Projected Win</th> -->
       <th>Score</th>
       <th>Win</th>
-      <!-- <th>Actual vs Projected</th>
-      <th>Bench</th>
-      <th>Additional Points Possible</th>
-      <th>Points Possible</th>
-      <th>Win If Started Perfectly</th>
-      <th>Win If Both Started Perfectly</th>
-      <th>MVP</th>
-      <th>LVP</th>
-      <th>Bench MVP</th> -->
+      <!-- <th>Win If Started Perfectly</th>
+      <th>Win If Both Started Perfectly</th> -->
     </thead>
     <tbody>
       {scores.map((score) => (
@@ -60,29 +44,13 @@ function displayOutcome(didWin) {
           <td>{displayOutcome(score.winner == "HOME")}</td>
         </tr>
       ))}
-      <!-- <td>Projected Points</td>
-        <td>Projected Win</td> -->
-      <!-- <td>Actual vs Projected</td>
-        <td>Bench</td>
-        <td>Additional Points Possible</td>
-        <td>Points Possible</td>
+      <!-- <td>Projected Win</td>
         <td>Win If Started Perfectly</td>
-        <td>Win If Both Started Perfectly</td>
-        <td>MVP</td>
-        <td>LVP</td>
-        <td>Bench MVP</td> -->
+        <td>Win If Both Started Perfectly</td> -->
       
-      <!-- <td>Projected Points</td>
-        <td>Projected Win</td> -->
-      <!-- <td>Actual vs Projected</td>
-        <td>Bench</td>
-        <td>Additional Points Possible</td>
-        <td>Points Possible</td>
+      <!-- <td>Projected Win</td>
         <td>Win If Started Perfectly</td>
-        <td>Win If Both Started Perfectly</td>
-        <td>MVP</td>
-        <td>LVP</td>
-        <td>Bench MVP</td> -->
+        <td>Win If Both Started Perfectly</td> -->
     </tbody>
   </table>
 </BaseLayout>

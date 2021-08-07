@@ -26,3 +26,7 @@ body {
     color: #fff;
   }
 }
+
+td.number {
+  text-align: right;
+}

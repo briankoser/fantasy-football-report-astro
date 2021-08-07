@@ -118,31 +118,31 @@ const { team } = Astro.props;
         <th>Flex</th>
         <th>D/ST</th>
         <th>K</th>
+        <th>Projected</th>
         <th>Actual</th>
-        <th>Bench</th>
         <!-- <th>Additional Points Possible</th> -->
         <!-- <th>Total Possible</th> -->
-        <th>Projected Points</th>
-        <th>Most Valuable Player</th>
-        <th>Least Valuable Player</th>
+        <th>MVP</th>
+        <th>LVP</th>
+        <th>Bench</th>
         <th>Bench MVP</th>
     </thead>
     <tbody>
-        <td>{team.week}</td>
-        <td>{team.positionPoints.find(p => p.position === "qb").points}</td>
-        <td>{team.positionPoints.find(p => p.position === "rb").points}</td>
-        <td>{team.positionPoints.find(p => p.position === "wr").points}</td>
-        <td>{team.positionPoints.find(p => p.position === "te").points}</td>
-        <td>{team.positionPoints.find(p => p.position === "flex").points}</td>
-        <td>{team.positionPoints.find(p => p.position === "def").points}</td>
-        <td>{team.positionPoints.find(p => p.position === "k").points}</td>
-        <td>{team.game.totalPoints}</td>
-        <td>{team.positionPoints.find(p => p.position === "bench").points}</td>
+        <td class="number">{team.week}</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "qb").points}</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "rb").points}</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "wr").points}</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "te").points}</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "flex").points}</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "def").points}</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "k").points}</td>
+        <td class="number">{team.projectedPoints.toFixed(2)}</td>
+        <td class="number">{team.game.totalPoints}</td>
         <!-- <td>Additional Points Possible</td> -->
         <!-- <td>Total Possible</td> -->
-        <td>{team.projectedPoints.toFixed(2)}</td>
         <td>{team.mvpNames} ({team.mvpPoints.toFixed(2)})</td>
         <td>{team.lvpNames} ({team.lvpPoints.toFixed(2)})</td>
+        <td class="number">{team.positionPoints.find(p => p.position === "bench").points}</td>
         <td>{team.benchMvpNames} ({team.benchMvpPoints.toFixed(2)})</td>
     </tbody>
   </table>
