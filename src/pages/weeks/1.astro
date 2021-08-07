@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
 
-import teams from '../../../data/2020/raw/teams.json';
-import week1 from '../../../data/2020/raw/weeks.json';
+import teams from '../../data/2020/raw/teams.json';
+import week1 from '../../data/2020/raw/weeks.json';
 const scores = week1.schedule.filter(s => s.matchupPeriodId === 1);
 
 function teamName(id) {
@@ -13,9 +13,12 @@ function teamName(id) {
 function displayOutcome(didWin) {
   return didWin ? "🏆" : "";
 }
+
+function displayProjection(didWin) {
+  return didWin ? "🏆" : "";
+}
 ---
-<BaseLayout title="Homepage">
-  <h2>Week 1 Scoreboard</h2>
+<BaseLayout title="Week 1 Scoreboard">
   <table class="table table-striped">
     <thead>
       <th>Away Team</th>
@@ -36,11 +39,11 @@ function displayOutcome(didWin) {
       {scores.map((score) => (
         <tr>
           <td>{teamName(score.away.teamId)}</td>
-          <td>{score.away.totalPoints}</td>
+          <td>{score.away.totalPoints.toFixed(2)}</td>
           <td>{displayOutcome(score.winner == "AWAY")}</td>
           
           <td>{teamName(score.home.teamId)}</td>
-          <td>{score.home.totalPoints}</td>
+          <td>{score.home.totalPoints.toFixed(2)}</td>
           <td>{displayOutcome(score.winner == "HOME")}</td>
         </tr>
       ))}
