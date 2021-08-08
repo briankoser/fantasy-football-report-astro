@@ -1,29 +1,4 @@
-# Welcome to [Astro](https://astro.build)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-/
-├── public/
-│   ├── robots.txt
-│   └── favicon.ico
-├── src/
-│   ├── components/
-│   │   └── Tour.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
+# Koser Fantasy Football Report
 
 ## 🧞 Commands
 
@@ -35,6 +10,19 @@ All commands are run from the root of the project, from a terminal:
 | `npm start`     | Starts local dev server at `localhost:3000` |
 | `npm run build` | Build your production site to `./dist/`     |
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://github.com/snowpackjs/astro) or jump into our [Discord server](https://astro.build/chat).
+## TODO
+1. Load from stats.js - fix data for $teams.astro
+2. Display 16 weeks on team pages
+3. Load data from URL
+4. Components
+5. Partial Hydration: client:load for charts
+6. Partial Hydration: client:idle for Github stars or Fantasy Football headlines
+7. Partial Hydration: client:visible for team avatars
+8. Markdown component
+9. Prism component
+10. Typescript
+11. Deploy to Netlify
+12. Supported Imports NPM Packages: what does it mean "Astro lets you import npm packages directly in the browser. Even if a package was published using a legacy format, Astro will up-convert the package to ESM before serving it to the browser."?
+13. Display 16 weeks of week pages
+14. Aliases
+15. Publish to NPM - Astro Static Tweet
