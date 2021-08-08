@@ -1,81 +1,32 @@
 ---
 import TeamLayout from '../layouts/TeamLayout.astro'
-
+import stats from '../data/2020/stats.js';
+console.log(Array.from(stats.weeks).map(week => [week[1][0].away, week[1][0].home].find(team => team.teamId === 2)));
 export async function createCollection() {
-    const espnImport = await import('../data/2020/espn.json');
-    const draftImport = await import('../data/2020/draft.json');
-    const teamsImport = await import('../data/2020/raw/teams.json');
-    const week1Import = await import('../data/2020/raw/weeks.json');
-
-    const espn = espnImport.default;
-    const draft = draftImport.default;
-    const teams = teamsImport.default[0];
-    const week1 = week1Import.default;
-
-    const week = 1;
-    const weekGames = week1.schedule.filter(s => s.matchupPeriodId === week);
-
     return {
         route: `/teams/:slug`,
         paths() {
-            return teams.teams.map(team => ({ params: { 
+            return stats.teams.map(team => ({ params: { 
                 abbrev: team.abbrev, 
                 id: team.id, 
-                ownerId: team.owners[0],
-                slug: team.abbrev.toLowerCase(),
-                teamName: `${team.location} ${team.nickname}`
+                ownerId: team.owner.id,
+                slug: team.slug,
+                teamName: team.teamName
             }}));
         },
         async props({ params }) {
-            let game = [...weekGames.map(w => w.home), ...weekGames.map(w => w.away)].find(w => w.teamId === params.id);
-            
-            let positionPoints = Object.keys(espn.lineupSlots).map(p => { 
-                let players = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId === espn.lineupSlots[p]);
-                let points = players.reduce( (acc, cur) => acc += cur.playerPoolEntry.appliedStatTotal, 0);
-                
-                return {
-                    "position": p, 
-                    "points": points.toFixed(2)
-                };
-            });
-            
-            let starters = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId !== espn.lineupSlots.bench);
-            let projected = starters.map(e => e.playerPoolEntry.player.stats.find(s => s.proTeamId === 0));
-            let projectedPoints = projected.reduce( (acc, cur) => acc += cur.appliedTotal, 0);
-            let mvpPoints = Math.max.apply(this, starters.map(s => s.playerPoolEntry.appliedStatTotal));
-            let mvps = starters.filter(s => s.playerPoolEntry.appliedStatTotal === mvpPoints);
-            let mvpNames = mvps.map(m => m.playerPoolEntry.player.fullName).join(", ");
-            let lvpPoints = Math.min.apply(this, starters.map(s => s.playerPoolEntry.appliedStatTotal));
-            let lvps = starters.filter(s => s.playerPoolEntry.appliedStatTotal === lvpPoints);
-            let lvpNames = lvps.map(m => m.playerPoolEntry.player.fullName).join(", ");
-            let bench = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId === espn.lineupSlots.bench);
-            let benchMvpPoints = Math.max.apply(this, bench.map(s => s.playerPoolEntry.appliedStatTotal));
-            let benchMvps = bench.filter(s => s.playerPoolEntry.appliedStatTotal === benchMvpPoints);
-            let benchMvpNames = benchMvps.map(m => m.playerPoolEntry.player.fullName).join(", ");
+            let games = Array.from(stats.weeks).map(week => [week[1][0].away, week[1][0].home].find(team => team.teamId === params.id));
+            let team = stats.teams.find(t => t.id === params.id);
 
             return {
-                team: {
-                    benchMvpNames,
-                    benchMvpPoints,
-                    draftOrder: draft.teams.find(t => t.id === params.id).draftOrder,
-                    game,
-                    owner: teams.members.find(m => m.id === params.ownerId),
-                    lvpNames,
-                    lvpPoints,
-                    mvpNames,
-                    mvpPoints,
-                    positionPoints,
-                    projectedPoints,
-                    slug: params.slug,
-                    teamName: params.teamName,
-                    week
-                }
+                games,
+                team
             };
         }
     };
 }
 
-const { team } = Astro.props;
+const { games, team } = Astro.props;
 ---
 <TeamLayout title="Team Report", teamSlug={team.slug}, teamName={team.teamName}>
   <h3>Season</h3>
@@ -128,22 +79,43 @@ const { team } = Astro.props;
         <th>Bench MVP</th>
     </thead>
     <tbody>
-        <td class="number">{team.week}</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "qb").points}</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "rb").points}</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "wr").points}</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "te").points}</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "flex").points}</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "def").points}</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "k").points}</td>
-        <td class="number">{team.projectedPoints.toFixed(2)}</td>
-        <td class="number">{team.game.totalPoints}</td>
+        {games.map((game) => (
+        <tr>
+            <td class="number">{game?.week}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "qb")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "rb")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "wr")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "te")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "flex")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "def")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "k")?.points}</td>
+            <td class="number">{game?.projectedPoints?.toFixed(2)}</td>
+            <td class="number">{game?.game?.totalPoints}</td>
+            <td>{game?.mvpNames} ({game?.mvpPoints?.toFixed(2)})</td>
+            <td>{game?.lvpNames} ({game?.lvpPoints?.toFixed(2)})</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "bench")?.points}</td>
+            <td>{game?.benchMvpNames} ({game?.benchMvpPoints?.toFixed(2)})</td>
+        </tr>
+        ))}
+        <!-- <tr>
+            <td class="number">{game.week}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "qb").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "rb").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "wr").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "te").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "flex").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "def").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "k").points}</td>
+            <td class="number">{game.projectedPoints.toFixed(2)}</td>
+            <td class="number">{game.game.totalPoints}</td>
+            <td>{game.mvpNames} ({game.mvpPoints.toFixed(2)})</td>
+            <td>{game.lvpNames} ({game.lvpPoints.toFixed(2)})</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "bench").points}</td>
+            <td>{game.benchMvpNames} ({game.benchMvpPoints.toFixed(2)})</td>
+        </tr> -->
+
         <!-- <td>Additional Points Possible</td> -->
         <!-- <td>Total Possible</td> -->
-        <td>{team.mvpNames} ({team.mvpPoints.toFixed(2)})</td>
-        <td>{team.lvpNames} ({team.lvpPoints.toFixed(2)})</td>
-        <td class="number">{team.positionPoints.find(p => p.position === "bench").points}</td>
-        <td>{team.benchMvpNames} ({team.benchMvpPoints.toFixed(2)})</td>
     </tbody>
   </table>
 </TeamLayout>

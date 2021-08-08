@@ -1,35 +1,28 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro'
-
-import teams from '../../data/2020/raw/teams.json';
-import week1 from '../../data/2020/raw/weeks.json';
-const scores = week1.schedule.filter(s => s.matchupPeriodId === 1);
-
-function teamName(id) {
-  let team = teams[0].teams.find(t => t.id === id);
-  return `${team.location} ${team.nickname}`;
-}
+import stats from '../../data/2020/stats.js';
+const scores = stats.weeks.get(1);
 
 function displayOutcome(didWin) {
   return didWin ? "🏆" : "";
 }
 
-function displayProjection(didWin) {
-  return didWin ? "🏆" : "";
+function displayProjection(shouldWin) {
+  return shouldWin ? "✔" : "";
 }
 ---
 <BaseLayout title="Week 1 Scoreboard">
   <table class="table table-striped">
     <thead>
       <th>Away Team</th>
-      <!-- <th>Projected Win</th> -->
+      <th>Projected Win</th>
       <th>Score</th>
       <th>Win</th>
       <!-- <th>Win If Started Perfectly</th>
       <th>Win If Both Started Perfectly</th> -->
 
       <th>Home Team</th>
-      <!-- <th>Projected Win</th> -->
+      <th>Projected Win</th>
       <th>Score</th>
       <th>Win</th>
       <!-- <th>Win If Started Perfectly</th>
@@ -38,13 +31,15 @@ function displayProjection(didWin) {
     <tbody>
       {scores.map((score) => (
         <tr>
-          <td>{teamName(score.away.teamId)}</td>
+          <td>{score.away.teamName}</td>
+          <td>{displayProjection(score.away.winProjection)}</td>
           <td>{score.away.totalPoints.toFixed(2)}</td>
-          <td>{displayOutcome(score.winner == "AWAY")}</td>
-          
-          <td>{teamName(score.home.teamId)}</td>
+          <td>{displayOutcome(score.away.didWin)}</td>
+
+          <td>{score.home.teamName}</td>
+          <td>{displayProjection(score.home.winProjection)}</td>
           <td>{score.home.totalPoints.toFixed(2)}</td>
-          <td>{displayOutcome(score.winner == "HOME")}</td>
+          <td>{displayOutcome(score.home.didWin)}</td>
         </tr>
       ))}
       <!-- <td>Projected Win</td>

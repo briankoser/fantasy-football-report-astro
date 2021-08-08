@@ -2,7 +2,7 @@
 import espn from './espn.json';
 import draft from './draft.json';
 import teams from './raw/teams.json';
-import weeks from './raw/weeks.json';
+import weeks from './raw/week16.json';
 
 
 
@@ -22,7 +22,7 @@ function groupBy(list, keyGetter) {
 }
 
 // data functions
-function getGameSlim(team, week, game, didWin) {
+function getGameSlim(team, week, game, projectedPoints, winProjection, didWin) {
     if (game.rosterForCurrentScoringPeriod == undefined) {
         return {
             didWin,
@@ -30,13 +30,12 @@ function getGameSlim(team, week, game, didWin) {
             teamId: game.teamId,
             teamName: team.teamName,
             totalPoints: game.totalPoints,
-            week
+            week,
+            winProjection
         };
     }
 
     let starters = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId !== espn.lineupSlots.bench);
-    let projected = starters.map(e => e.playerPoolEntry.player.stats.find(s => s.proTeamId === 0));
-    let projectedPoints = projected.reduce( (acc, cur) => acc += cur.appliedTotal, 0);
     let mvpPoints = Math.max.apply(this, starters.map(s => s.playerPoolEntry.appliedStatTotal));
     let mvps = starters.filter(s => s.playerPoolEntry.appliedStatTotal === mvpPoints);
     let mvpNames = mvps.map(m => m.playerPoolEntry.player.fullName).join(", ");
@@ -76,6 +75,17 @@ function getGameSlim(team, week, game, didWin) {
     };
 }
 
+function getProjectedPoints (game) {
+    // TODO: retrieve each week so we have the rosterForCurrentScoringPeriod for each week
+    if (game.rosterForCurrentScoringPeriod == undefined) {
+        return 0;
+    }
+
+    let starters = game.rosterForCurrentScoringPeriod.entries.filter(e => e.lineupSlotId !== espn.lineupSlots.bench);
+    let projected = starters.map(e => e.playerPoolEntry.player.stats.find(s => s.proTeamId === 0));
+    let projectedPoints = projected.reduce( (acc, cur) => acc += cur.appliedTotal, 0);
+    return projectedPoints;
+}
 
 
 const teamsSlim = teams[0].teams.map(team => ({
@@ -88,10 +98,14 @@ const teamsSlim = teams[0].teams.map(team => ({
 }));
 
 const weeksSlim = weeks.schedule.map(game => {
+    let homeProjectedPoints = getProjectedPoints(game.home);
+    let awayProjectedPoints = getProjectedPoints(game.away);
     let homeTeam = teamsSlim.find(t => t.id === game.home.teamId);
-    let home = getGameSlim(homeTeam, game.matchupPeriodId, game.home, game.winner === "HOME");
+    let home = getGameSlim(homeTeam, game.matchupPeriodId, game.home, homeProjectedPoints, 
+        homeProjectedPoints - awayProjectedPoints, game.winner === "HOME");
     let awayTeam = teamsSlim.find(t => t.id === game.away.teamId);
-    let away = getGameSlim(awayTeam, game.matchupPeriodId, game.away, game.winner === "AWAY");
+    let away = getGameSlim(awayTeam, game.matchupPeriodId, game.away, awayProjectedPoints,
+        awayProjectedPoints - homeProjectedPoints, game.winner === "AWAY");
     
     return {
         away,
