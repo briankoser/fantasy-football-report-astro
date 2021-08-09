@@ -1,7 +1,7 @@
 ---
 import TeamLayout from '../layouts/TeamLayout.astro'
 import stats from '../data/2020/stats.js';
-console.log(Array.from(stats.weeks).map(week => [week[1][0].away, week[1][0].home].find(team => team.teamId === 2)));
+
 export async function createCollection() {
     return {
         route: `/teams/:slug`,
@@ -15,7 +15,7 @@ export async function createCollection() {
             }}));
         },
         async props({ params }) {
-            let games = Array.from(stats.weeks).map(week => [week[1][0].away, week[1][0].home].find(team => team.teamId === params.id));
+            let games = Array.from(stats.weeks).map(week => [...week[1].map(a => a.away), ...week[1].map(h => h.home)].find(team => team.teamId === params.id));
             let team = stats.teams.find(t => t.id === params.id);
 
             return {

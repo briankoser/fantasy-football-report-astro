@@ -2,7 +2,7 @@
 import espn from './espn.json';
 import draft from './draft.json';
 import teams from './raw/teams.json';
-import weeks from './raw/week16.json';
+import weeks from './raw/week1.json';
 
 
 
