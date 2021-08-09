@@ -1,4 +1,5 @@
 ---
+import SiteFooter from '../components/SiteFooter.astro'
 const {title} = Astro.props;
 ---
 <!DOCTYPE html>
@@ -34,8 +35,6 @@ const {title} = Astro.props;
         <h1>{title}</h1>
         <slot />
     </main>
-    <footer class="site-footer">
-        © Brian Koser 2021 · <a href="https://astro.build/">Astro</a> and <a href="https://picturepan2.github.io/spectre">Spectre CSS</a> · Are you ready for some foot-baaaaaaaaaall
-    </footer>
+    <SiteFooter />
 </body>
 </html>

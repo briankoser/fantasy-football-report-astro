@@ -15,7 +15,6 @@ All commands are run from the root of the project, from a terminal:
 5. Partial Hydration: client:load for charts
 6. Partial Hydration: client:idle for Github stars or Fantasy Football headlines
 7. Partial Hydration: client:visible for team avatars
-8. Markdown component
 9. Prism component
 10. Typescript
 11. Deploy to Netlify
