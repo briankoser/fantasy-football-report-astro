@@ -15,8 +15,6 @@ All commands are run from the root of the project, from a terminal:
 5. Partial Hydration: client:load for charts
 6. Partial Hydration: client:idle for Github stars or Fantasy Football headlines
 7. Partial Hydration: client:visible for team avatars
-9. Prism component
-10. Typescript
 11. Deploy to Netlify
 12. Supported Imports NPM Packages: what does it mean "Astro lets you import npm packages directly in the browser. Even if a package was published using a legacy format, Astro will up-convert the package to ESM before serving it to the browser."?
 13. Display 16 weeks of week pages
