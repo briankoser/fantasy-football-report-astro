@@ -1,0 +1,69 @@
+---
+const {games} = Astro.props;
+---
+<h3>Weekly</h3>
+<table class="table table-striped table-hover">
+    <thead>
+        <th>Week</th>
+        <th>QB</th>
+        <th>RB</th>
+        <th>WR</th>
+        <th>TE</th>
+        <th>Flex</th>
+        <th>D/ST</th>
+        <th>K</th>
+        <th>Projected</th>
+        <th>Actual</th>
+        <!-- <th>Additional Points Possible</th> -->
+        <!-- <th>Total Possible</th> -->
+        <th>MVP</th>
+        <th>LVP</th>
+        <th>Bench</th>
+        <th>Bench MVP</th>
+    </thead>
+    <tbody>
+        {games.map((game) => (
+        <tr>
+            <td class="number">{game?.week}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "qb")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "rb")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "wr")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "te")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "flex")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "def")?.points}</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "k")?.points}</td>
+            <td class="number">{game?.projectedPoints?.toFixed(2)}</td>
+            <td class="number">{game?.game?.totalPoints}</td>
+            <td>{game?.mvpNames} ({game?.mvpPoints?.toFixed(2)})</td>
+            <td>{game?.lvpNames} ({game?.lvpPoints?.toFixed(2)})</td>
+            <td class="number">{game?.positionPoints?.find(p => p.position === "bench")?.points}</td>
+            <td>{game?.benchMvpNames} ({game?.benchMvpPoints?.toFixed(2)})</td>
+        </tr>
+        ))}
+        <!-- <tr>
+            <td class="number">{game.week}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "qb").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "rb").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "wr").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "te").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "flex").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "def").points}</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "k").points}</td>
+            <td class="number">{game.projectedPoints.toFixed(2)}</td>
+            <td class="number">{game.game.totalPoints}</td>
+            <td>{game.mvpNames} ({game.mvpPoints.toFixed(2)})</td>
+            <td>{game.lvpNames} ({game.lvpPoints.toFixed(2)})</td>
+            <td class="number">{game.positionPoints.find(p => p.position === "bench").points}</td>
+            <td>{game.benchMvpNames} ({game.benchMvpPoints.toFixed(2)})</td>
+        </tr> -->
+
+        <!-- <td>Additional Points Possible</td> -->
+        <!-- <td>Total Possible</td> -->
+    </tbody>
+</table>
+
+<style lang="scss">
+    h3 {
+        margin-top: 2em;
+    }
+</style>

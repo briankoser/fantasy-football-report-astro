@@ -12,7 +12,6 @@ All commands are run from the root of the project, from a terminal:
 
 ## TODO
 3. Load data from URL
-4. Components
 5. Partial Hydration: client:load for charts
 6. Partial Hydration: client:idle for Github stars or Fantasy Football headlines
 7. Partial Hydration: client:visible for team avatars

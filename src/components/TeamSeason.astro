@@ -1,0 +1,31 @@
+---
+const {team} = Astro.props;
+---
+<h3>Season</h3>
+<table class="table">
+    <thead>
+        <th>Owner</th>
+        <th>Draft Order</th>
+        <!-- <th>Highest Total</th>
+        <th>Lowest Total</th>
+        <th>Perfect Starts</th>
+        <th>Regular Season Points</th>
+        <th>Playoffs Points</th>
+        <th>Highest MVP Points</th>
+        <th>Highest MVP Player</th>
+        <th>Lowest MVP Points</th>
+        <th>Lowest MVP Player</th>
+        <th>Highest LVP Points</th>
+        <th>Highest LVP Player</th>
+        <th>Lowest LVP Points</th>
+        <th>Lowest LVP Player</th>
+        <th>Season MVP Points</th>
+        <th>Season MVP Player</th> -->
+    </thead>
+    <tbody>
+        <tr>
+            <td>{team.owner.displayName}</td>
+            <td>{team.draftOrder}</td>
+        </tr>
+    </tbody>
+</table>
